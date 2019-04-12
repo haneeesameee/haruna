@@ -7,9 +7,7 @@
 	"license": "UNLICENSED",
 	"private": true,
 	"scripts": {
-		"prebuild": "yarn lint",
-		"build": "gulp",
-		"lint": "tslint -p tsconfig.json"
+		"start": "node src/index.js"
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
@@ -26,29 +24,7 @@
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
-		"typeorm": "^0.2.16",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^3.8.0"
-	},
-	"devDependencies": {
-		"@types/backoff": "^2.5.1",
-		"@types/common-tags": "^1.8.0",
-		"@types/ioredis": "^4.0.10",
-		"@types/moment-duration-format": "^2.2.2",
-		"@types/node": "^11.13.4",
-		"@types/ws": "^6.0.1",
-		"fs-nextra": "^0.4.5",
-		"gulp": "^4.0.0",
-		"gulp-sourcemaps": "^2.6.5",
-		"gulp-typescript": "^5.0.1",
-		"merge2": "^1.2.3",
-		"tslint": "^5.15.0",
-		"tslint-config-fire": "^1.0.1",
-		"typescript": "^3.4.3"
-	},
-	"optionalDependencies": {
-		"@discordjs/uws": "^11.149.1",
-		"erlpack": "discordapp/erlpack",
-		"zlib-sync": "^0.1.4"
 	}
 }
