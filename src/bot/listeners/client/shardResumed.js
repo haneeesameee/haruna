@@ -1,7 +1,7 @@
-import { Listener } from 'discord-akairo';
+const { Listener } = require('discord-akairo');
 
-export default class ShardResumeListener extends Listener {
-	public constructor() {
+class ShardResumeListener extends Listener {
+	constructor() {
 		super('shardResumed', {
 			emitter: 'client',
 			event: 'shardResumed',
@@ -9,9 +9,11 @@ export default class ShardResumeListener extends Listener {
 		});
 	}
 
-	public exec(id: number) {
+	exec(id) {
 		this.client.logger.info(`[SHARD ${id} RESUMED] Alright, next time I'll--Eh...again...?`);
 		this.client.promServer.listen(5501);
 		this.client.logger.info(`[SHARD ${id} RESUMED][METRICS] Metrics listening on 5501`);
 	}
 }
+
+module.exports = ShardResumeListener;

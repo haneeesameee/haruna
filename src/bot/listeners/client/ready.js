@@ -1,8 +1,8 @@
-import { Listener } from 'discord-akairo';
-import { ReferenceType } from 'rejects';
+const { Listener } = require('discord-akairo');
+const { ReferenceType } = require('rejects');
 
-export default class ReadyListener extends Listener {
-	public constructor() {
+class ReadyListener extends Listener {
+	constructor() {
 		super('ready', {
 			emitter: 'client',
 			event: 'ready',
@@ -10,9 +10,9 @@ export default class ReadyListener extends Listener {
 		});
 	}
 
-	public async exec() {
-		this.client.logger.info(`[READY] Hello, I am ${this.client.user!.tag} (${this.client.user!.id}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`);
-		this.client.user!.setActivity(`@${this.client.user!.username} help 🎶`);
+	async exec() {
+		this.client.logger.info(`[READY] Hello, I am ${this.client.user.tag} (${this.client.user.id}), one of the first fast battleships of the Sakura Empire. I'm someone who prefers the fist to the sword. Nice to meet you.`);
+		this.client.user.setActivity(`@${this.client.user.username} help 🎶`);
 		this.client.promServer.listen(5501);
 		this.client.logger.info('[READY][METRICS] Metrics listening on 5501');
 
@@ -28,3 +28,5 @@ export default class ReadyListener extends Listener {
 		}
 	}
 }
+
+module.exports = ReadyListener;

@@ -1,8 +1,7 @@
-import HarunaClient from '../../client/HarunaClient';
-import { Listener } from 'discord-akairo';
+const { Listener } = require('discord-akairo');
 
-export default class ShardReconnectListener extends Listener {
-	public constructor() {
+class ShardReconnectListener extends Listener {
+	constructor() {
 		super('shardReconnecting', {
 			emitter: 'client',
 			event: 'shardReconnecting',
@@ -10,9 +9,11 @@ export default class ShardReconnectListener extends Listener {
 		});
 	}
 
-	public exec(id: number) {
+	exec(id) {
 		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!!`);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} RECONNECTING][METRICS] Metrics server closed.`);
 	}
 }
+
+module.exports = ShardReconnectListener;

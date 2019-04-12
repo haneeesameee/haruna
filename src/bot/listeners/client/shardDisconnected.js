@@ -1,7 +1,7 @@
-import { Listener } from 'discord-akairo';
+const { Listener } = require('discord-akairo');
 
-export default class ShardDisconnectedListener extends Listener {
-	public constructor() {
+class ShardDisconnectedListener extends Listener {
+	constructor() {
 		super('shardDisconnected', {
 			emitter: 'client',
 			event: 'shardDisconnected',
@@ -9,9 +9,11 @@ export default class ShardDisconnectedListener extends Listener {
 		});
 	}
 
-	public exec(event: any, id: number) {
+	exec(event, id) {
 		this.client.logger.warn(`[SHARD ${id} DISCONNECTED] Ugh...I'm sorry...but, a loss is a loss... (${event.code})`, event);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} DISCONNECTED][METRICS] Metrics server closed.`);
 	}
 }
+
+module.exports = ShardDisconnectedListener;
