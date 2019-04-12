@@ -1,8 +1,7 @@
-import { Command } from 'discord-akairo';
-import { Message, User } from 'discord.js';
+const { Command } = require('discord-akairo');
 
-export default class BlacklistCommand extends Command {
-	public constructor() {
+class BlacklistCommand extends Command {
+	constructor() {
 		super('blacklist', {
 			aliases: ['blacklist', 'unblacklist'],
 			description: {
@@ -19,14 +18,14 @@ export default class BlacklistCommand extends Command {
 					match: 'content',
 					type: 'user',
 					prompt: {
-						start: (message: Message) => `${message.author}, who would you like to blacklist/unblacklist?`
+						start: message => `${message.author}, who would you like to blacklist/unblacklist?`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { user }: { user: User }) {
+	async exec(message, { user }) {
 		const blacklist = this.client.settings.get('global', 'blacklist', []);
 		if (blacklist.includes(user.id)) {
 			const index = blacklist.indexOf(user.id);
@@ -34,12 +33,14 @@ export default class BlacklistCommand extends Command {
 			if (blacklist.length === 0) this.client.settings.delete('global', 'blacklist');
 			else this.client.settings.set('global', 'blacklist', blacklist);
 
-			return message.util!.send(`${user.tag}, ha!...If I wore gloves, I wouldn't have to dirty my hands hitting you next time.`);
+			return message.util.send(`${user.tag}, ha!...If I wore gloves, I wouldn't have to dirty my hands hitting you next time.`);
 		}
 
 		blacklist.push(user.id);
 		this.client.settings.set('global', 'blacklist', blacklist);
 
-		return message.util!.send(`${user.tag}, you've let down my expectations--`);
+		return message.util.send(`${user.tag}, you've let down my expectations--`);
 	}
 }
+
+module.exports = BlacklistCommand;
