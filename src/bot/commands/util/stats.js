@@ -1,13 +1,11 @@
-import { Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import * as moment from 'moment';
-import 'moment-duration-format';
+const { Command } = require('discord-akairo');
+const { MessageEmbed } = require('discord.js');
+const moment = require('moment');
+require('moment-duration-format');
+const { version } = require('../../../../package.json');
 
-const { version } = require('../../../../package.json'); // tslint:disable-line
-
-export default class StatsCommand extends Command {
-	public constructor() {
+class StatsCommand extends Command {
+	constructor() {
 		super('stats', {
 			aliases: ['stats'],
 			description: {
@@ -19,10 +17,10 @@ export default class StatsCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message) {
+	async exec(message) {
 		const embed = new MessageEmbed()
 			.setColor(3447003)
-			.setDescription(`**${this.client.user!.username} Statistics**`)
+			.setDescription(`**${this.client.user.username} Statistics**`)
 			.addField('❯ Uptime', moment.duration(this.client.uptime).format('d[d ]h[h ]m[m ]s[s]'), true)
 			.addField('❯ Memory Usage', `${Math.round(process.memoryUsage().heapUsed / 1024 / 1024)}MB`, true)
 			.addField(
@@ -37,12 +35,14 @@ export default class StatsCommand extends Command {
 			.addField('❯ Source Code', '[View Here](https://github.com/Naval-Base/haruna)', true)
 			.addField(
 				'❯ Library',
-				'[discord.js](https://discord.js.org)[-akairo](https://github.com/1Computer1/discord-akairo)',
+				'[discord.js](https://discord.js.org)[-akairo](https://github.com/discord-akairo/discord-akairo)',
 				true
 			)
-			.setThumbnail(this.client.user!.displayAvatarURL())
-			.setFooter(`© 2018 ${this.client.users.get(this.client.config.owner!)!.tag}`);
+			.setThumbnail(this.client.user.displayAvatarURL())
+			.setFooter(`© 2018 ${this.client.users.get(this.client.config.owner).tag}`);
 
-		return message.util!.send(embed);
+		return message.util.send(embed);
 	}
 }
+
+module.exports = StatsCommand;
