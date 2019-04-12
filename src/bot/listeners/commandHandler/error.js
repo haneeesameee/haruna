@@ -1,9 +1,8 @@
-import { Listener, Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-const Raven = require('raven'); // tslint:disable-line
+const { Listener } = require('discord-akairo');
+const Raven = require('raven');
 
-export default class CommandErrorListener extends Listener {
-	public constructor() {
+class CommandErrorListener extends Listener {
+	constructor() {
 		super('error', {
 			emitter: 'commandHandler',
 			event: 'error',
@@ -11,7 +10,7 @@ export default class CommandErrorListener extends Listener {
 		});
 	}
 
-	public exec(error: Error, message: Message, command: Command) {
+	exec(error, message, command) {
 		this.client.logger.error(`[COMMAND ERROR] ${error.message}`, error.stack);
 		Raven.captureBreadcrumb({
 			message: 'command_errored',
@@ -39,3 +38,5 @@ export default class CommandErrorListener extends Listener {
 		Raven.captureException(error);
 	}
 }
+
+module.exports = CommandErrorListener;

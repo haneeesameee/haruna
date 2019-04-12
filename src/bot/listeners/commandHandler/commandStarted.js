@@ -1,9 +1,8 @@
-import { Listener, Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-const Raven = require('raven'); // tslint:disable-line
+const { Listener } = require('discord-akairo');
+const Raven = require('raven');
 
-export default class CommandStartedListener extends Listener {
-	public constructor() {
+class CommandStartedListener extends Listener {
+	constructor() {
 		super('commandStarted', {
 			emitter: 'commandHandler',
 			event: 'commandStarted',
@@ -11,7 +10,7 @@ export default class CommandStartedListener extends Listener {
 		});
 	}
 
-	public exec(message: Message, command: Command, args: any[]) {
+	exec(message, command, args) {
 		this.client.prometheus.commandCounter.inc();
 		Raven.captureBreadcrumb({
 			message: 'command_started',
@@ -61,3 +60,5 @@ export default class CommandStartedListener extends Listener {
 		});
 	}
 }
+
+module.exports = CommandStartedListener;
