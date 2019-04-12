@@ -1,11 +1,10 @@
-import { Argument, Command } from 'discord-akairo';
-import { Message, MessageEmbed, GuildMember } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import paginate from '../../../../util/paginate';
-import { Playlist } from '../../../models/Playlists';
+const { Argument, Command } = require('discord-akairo');
+const { MessageEmbed } = require('discord.js');
+const paginate = require('../../../../util/paginate');
+const { Playlist } = require('../../../models/Playlists');
 
-export default class PlaylistListCommand extends Command {
-	public constructor() {
+class PlaylistListCommand extends Command {
+	constructor() {
 		super('playlist-list', {
 			category: 'music',
 			description: {
@@ -28,11 +27,11 @@ export default class PlaylistListCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { member, page }: { member: GuildMember, page: number }) {
+	async exec(message, { member, page }) {
 		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
 		const playlistRepo = this.client.db.getRepository(Playlist);
 		const playlists = await playlistRepo.find(where);
-		if (!playlists.length) return message.util!.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
+		if (!playlists.length) return message.util.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
 		const paginated = paginate(playlists, page);
 
 		const embed = new MessageEmbed()
@@ -44,6 +43,8 @@ export default class PlaylistListCommand extends Command {
 			`);
 		if (paginated.maxPage > 1) embed.setFooter('Use playlist list <member> <page> to view a specific page.');
 
-		return message.util!.send(embed);
+		return message.util.send(embed);
 	}
 }
+
+module.exports = PlaylistListCommand

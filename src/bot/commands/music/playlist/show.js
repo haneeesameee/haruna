@@ -1,11 +1,10 @@
-import { Argument, Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import paginate from '../../../../util/paginate';
-import timeString from '../../../../util/timeString';
+const { Argument, Command } = require('discord-akairo');
+const { MessageEmbed } = require('discord.js');
+const paginate = require('../../../../util/paginate');
+const timeString = require('../../../../util/timeString');
 
-export default class PlaylistShowCommand extends Command {
-	public constructor() {
+class PlaylistShowCommand extends Command {
+	constructor() {
 		super('playlist-show', {
 			category: 'music',
 			description: {
@@ -21,8 +20,8 @@ export default class PlaylistShowCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist do you want information on?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: message => `${message.author}, what playlist do you want information on?`,
+						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
 				{
@@ -35,12 +34,12 @@ export default class PlaylistShowCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { playlist, page }: { playlist: any, page: number }) {
-		if (!playlist.songs.length) return message.util!.send('This playlist has no songs!');
+	async exec(message, { playlist, page }) {
+		if (!playlist.songs.length) return message.util.send('This playlist has no songs!');
 		const decoded = await this.client.music.decode(playlist.songs);
 		// TODO: remove hack
-		const totalLength = (decoded as any).reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
-		const paginated = paginate(decoded as any, page);
+		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
+		const paginated = paginate(decoded, page);
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
@@ -54,6 +53,8 @@ export default class PlaylistShowCommand extends Command {
 			`);
 		if (paginated.maxPage > 1) embed.setFooter('Use playlist show <playlist> <page> to view a specific page.');
 
-		return message.util!.send(embed);
+		return message.util.send(embed);
 	}
 }
+
+module.exports = PlaylistShowCommand;

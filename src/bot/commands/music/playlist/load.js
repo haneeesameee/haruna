@@ -1,9 +1,8 @@
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-import { Playlist } from '../../../models/Playlists';
+const { Command } = require('discord-akairo');
+const { Playlist } = require('../../../models/Playlists');
 
-export default class PlaylistLoadCommand extends Command {
-	public constructor() {
+class PlaylistLoadCommand extends Command {
+	constructor() {
 		super('playlist-load', {
 			description: {
 				content: 'Loads a playlist into the queue.',
@@ -19,21 +18,21 @@ export default class PlaylistLoadCommand extends Command {
 					match: 'content',
 					type: 'playlist',
 					prompt: {
-						start: (message: Message) => `${message.author}, what playlist should be played?`,
-						retry: (message: Message, { failure }: { failure: { value: string } }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
+						start: message => `${message.author}, what playlist should be played?`,
+						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				}
 			]
 		});
 	}
 
-	public async exec(message: Message, { playlist }: { playlist: any }) {
+	async exec(message, { playlist }) {
 		if (!message.member.voice || !message.member.voice.channel) {
-			return message.util!.reply('you have to be in a voice channel first, silly.');
+			return message.util.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {
-			return message.util!.reply("I don't seem to have permission to enter this voice channel.");
+			return message.util.reply("I don't seem to have permission to enter this voice channel.");
 		} else if (!message.member.voice.channel.speakable) {
-			return message.util!.reply("I don't seem to have permission to talk in this voice channel.");
+			return message.util.reply("I don't seem to have permission to talk in this voice channel.");
 		}
 		const user = await this.client.users.fetch(playlist.user);
 		const queue = this.client.music.queues.get(message.guild.id);
@@ -44,6 +43,8 @@ export default class PlaylistLoadCommand extends Command {
 		playlist.plays += 1;
 		await playlistRepo.save(playlist);
 
-		return message.util!.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${playlist.name}\` from ${user.tag}`);
+		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${playlist.name}\` from ${user.tag}`);
 	}
 }
+
+module.exports = PlaylistLoadCommand

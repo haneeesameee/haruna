@@ -5,7 +5,7 @@ const { Client : Lavaqueue } = require('lavaqueue');
 const { Logger, createLogger, transports, format } = require('winston');
 const DailyRotateFile = ('winston-daily-rotate-file');
 const { ReferenceType, Rejects } = require('rejects');
-const database = require('../structures/Database');
+const Database = require('../structures/Database');
 const SettingsProvider = require('../structures/SettingsProvider')
 const { Setting } = require('../models/Settings');
 const { Playlist } = require('../models/Playlists');
@@ -177,6 +177,7 @@ class Client extends AkairoClient {
 		this.listenerHandler.loadAll();
 
 		this.settings = new SettingsProvider(Setting);
+		await Database.authenticate();
 		await this.settings.init();
 	}
 
