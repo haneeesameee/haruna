@@ -1,11 +1,10 @@
-import { Argument, Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import paginate from '../../../util/paginate';
-import timeString from '../../../util/timeString';
+const { Argument, Command } = require('discord-akairo');
+const { MessageEmbed } = require('discord.js');
+const paginate = require('../../../../util/paginate');
+const timeString = require('../../../../util/timeString');
 
-export default class QueueCommand extends Command {
-	public constructor() {
+class QueueCommand extends Command {
+	constructor() {
 		super('queue', {
 			aliases: ['queue', 'q', 'nowplaying', 'np', 'ℹ'],
 			description: {
@@ -27,22 +26,22 @@ export default class QueueCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { page }: { page: number }) {
+	async exec(message, { page }) {
 		const queue = this.client.music.queues.get(message.guild.id);
 		const current = await queue.current();
 		const tracks = [(current || { track: null }).track].concat(await queue.tracks()).filter(track => track);
-		if (!tracks.length) return message.util!.send('Got nothing in queue!');
-		const decoded = await this.client.music.decode(tracks as any[]);
-		const totalLength = decoded.reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
+		if (!tracks.length) return message.util.send('Got nothing in queue!');
+		const decoded = await this.client.music.decode(tracks);
+		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded.slice(1), page);
 		let index = (paginated.page - 1) * 10;
 
 		const embed = new MessageEmbed()
 			.setAuthor(`${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL())
-			.setDescription(stripIndents`
+			.setDescription(`
 				**Now playing:**
 
-				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current!.position)}/${timeString(decoded[0].info.length)})
+				**❯** [${decoded[0].info.title}](${decoded[0].info.uri}) (${timeString(current.position)}/${timeString(decoded[0].info.length)})
 
 				**Song queue${paginated.page > 1 ? `, page ${paginated.page}` : ''}:**
 
@@ -52,6 +51,8 @@ export default class QueueCommand extends Command {
 			`);
 		if (paginated.maxPage > 1) embed.setFooter('Use queue <page> to view a specific page.');
 
-		return message.util!.send(embed);
+		return message.util.send(embed);
 	}
 }
+
+module.exports = QueueCommand;

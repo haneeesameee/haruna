@@ -1,45 +1,26 @@
-import { Command } from 'discord-akairo';
-import { Message } from 'discord.js';
-import { stripIndents } from 'common-tags';
+const { Command } = require('discord-akairo');
 
-interface SingleAction {
-	kind: 'single';
-	num: number;
-}
-
-interface SliceAction {
-	kind: 'slice';
-	from: number;
-	to: number;
-	reverse: boolean;
-}
-
-interface SpreadAction {
-	kind: 'spread';
-}
-
-type Action = SingleAction | SliceAction | SpreadAction; // tslint:disable-line
-
-interface OrderingMatch {
-	sliceFrom?: string;
-	sliceTo?: string;
-	singleNum?: string;
-	spread?: string;
-}
+/**
+ * I don't Know what I did here :D
+ */
+const sliceFrom = String;
+const sliceTo = String;
+const singleNum = String;
+const spread = String;
 
 const ORDERING_REGEX = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>\d+)\s*|\s*(?<spread>\*)\s*/g;
 
-export default class ReorderCommand extends Command {
+class ReorderCommand extends Command {
 	constructor() {
 		super('reorder', {
 			aliases: ['reorder', '↕'],
 			description: {
-				content: stripIndents`
-					Reorders the current queue.
-					A number means that the song at that number currently will be moved to that position.
-					A '-' between two numbers means to move all the songs, starting from first number to the second number.
-					A '\\*' means to spread the remaining songs out (multiple '\\*' will split it evenly).
-				`,
+				content: [
+					'Reorders the current queue.',
+					'A number means that the song at that number currently will be moved to that position.',
+					"A '-' between two numbers means to move all the songs, starting from first number to the second number.",
+					"A '\\*' means to spread the remaining songs out (multiple '\\*' will split it evenly)."
+				],
 				usage: '<ordering>',
 				examples: ['1-3 7 *', '1 2 3 *', '10-7 * 1 2 3 3 * 10-7']
 			},
@@ -55,28 +36,29 @@ export default class ReorderCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message, { ordering }: { ordering: string | null }) {
+	async exec(message, { ordering }) {
 		if (!message.member.voice || !message.member.voice.channel) {
-			return message.util!.reply('you have to be in a voice channel first, silly.');
+			return message.util.reply('you have to be in a voice channel first, silly.');
 		}
 		const DJ = message.member.roles.has(this.client.settings.get(message.guild, 'djRole', undefined));
 		if (!DJ) {
-			return message.util!.reply('nuh, uh!');
+			return message.util.reply('nuh, uh!');
 		}
 		if (!ordering) {
-			return message.util!.reply('you have to supply a new order for the songs.');
+			return message.util.reply('you have to supply a new order for the songs.');
 		}
 		const orderingMatch = ordering.match(ORDERING_REGEX);
+		 console.log(orderingMatch);
 		if (!orderingMatch || orderingMatch.join('').length !== ordering.length) {
-			return message.util!.reply('you have to supply a valid new order for the songs.');
+			return message.util.reply('you have to supply a valid new order for the songs.');
 		}
 
 		const queue = this.client.music.queues.get(message.guild.id);
-		const queueLength = await queue.length(); // tslint:disable-line
-		const actions: Action[] = [];
+		const queueLength = await queue.length();
+		const actions = [];
 		let match;
-		while ((match = ORDERING_REGEX.exec(ordering)) !== null) { // tslint:disable-line
-			const groups: OrderingMatch = match.groups!;
+		while ((match = ORDERING_REGEX.exec(ordering)) !== null) {
+			const groups = match.groups;
 			if (groups.sliceFrom && groups.sliceTo) {
 				let from = Number(groups.sliceFrom) - 1;
 				let to = Number(groups.sliceTo) - 1;
@@ -86,8 +68,10 @@ export default class ReorderCommand extends Command {
 					reverse = true;
 				}
 
+				console.log(match);
+
 				if (from >= queueLength || to >= queueLength || from < 0 || to < 0) {
-					return message.util!.reply('some song numbers were out of bound.');
+					return message.util.reply('some song numbers were out of bound.');
 				}
 
 				actions.push({
@@ -99,7 +83,7 @@ export default class ReorderCommand extends Command {
 			} else if (groups.singleNum) {
 				const num = Number(groups.singleNum) - 1;
 				if (num >= queueLength || num < 0) {
-					return message.util!.reply('some song numbers were out of bound.');
+					return message.util.reply('some song numbers were out of bound.');
 				}
 
 				actions.push({
@@ -151,6 +135,8 @@ export default class ReorderCommand extends Command {
 		await queue.store.redis.del(queue.keys.next);
 		await queue.add(...newTracks);
 
-		return message.util!.reply('the queue has been reordered.');
+		return message.util.reply('the queue has been reordered.');
 	}
 }
+
+module.exports = ReorderCommand;

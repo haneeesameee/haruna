@@ -1,12 +1,10 @@
-import HarunaClient from '../../client/HarunaClient';
-import { Argument, Command } from 'discord-akairo';
-import { Message, MessageEmbed } from 'discord.js';
-import { stripIndents } from 'common-tags';
-import paginate from '../../../util/paginate';
-import timeString from '../../../util/timeString';
+const { Argument, Command } = require('discord-akairo');
+const { MessageEmbed } = require('discord.js');
+const paginate = require('../../../../util/paginate');
+const timeString = require('../../../../util/timeString');
 
-export default class SkipCommand extends Command {
-	public constructor() {
+class SkipCommand extends Command {
+	constructor() {
 		super('skip', {
 			aliases: ['skip', '🚶', '🏃'],
 			description: {
@@ -21,14 +19,14 @@ export default class SkipCommand extends Command {
 		});
 	}
 
-	public *args(msg: Message) {
+	*args(msg) {
 		const force = yield {
 			match: 'flag',
 			flag: ['--force', '-f']
 		};
 
 		const num = yield (
-			msg.member.roles.has((msg.client as HarunaClient).settings.get('msg.guild', 'djRole', undefined)) && force ?
+			msg.member.roles.has(this.client.settings.get('msg.guild', 'djRole', undefined)) && force ?
 			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)) } :
 			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)) }
 		);
@@ -36,9 +34,9 @@ export default class SkipCommand extends Command {
 		return { num };
 	}
 
-	public async exec(message: Message, { num }: { num: number }) {
+	async exec(message, { num }) {
 		if (!message.member.voice || !message.member.voice.channel) {
-			return message.util!.reply('you have to be in a voice channel first, silly.');
+			return message.util.reply('you have to be in a voice channel first, silly.');
 		}
 		const queue = this.client.music.queues.get(message.guild.id);
 		let tracks;
@@ -48,10 +46,10 @@ export default class SkipCommand extends Command {
 		const skip = await queue.next(num);
 		if (!skip) {
 			await queue.stop();
-			return message.util!.send('Skipped the last playing song.');
+			return message.util.send('Skipped the last playing song.');
 		}
-		const decoded = await this.client.music.decode(tracks as any[]);
-		const totalLength = decoded.reduce((prev: number, song: any) => prev + song.info.length, 0); // tslint:disable-line
+		const decoded = await this.client.music.decode(tracks);
+		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded, 1, 10);
 		let index = (paginated.page - 1) * 10;
 
@@ -65,6 +63,8 @@ export default class SkipCommand extends Command {
 				**Total skipped time:** ${timeString(totalLength)}
 			`);
 
-		return message.util!.send(embed);
+		return message.util.send(embed);
 	}
 }
+
+module.exports = SkipCommand;

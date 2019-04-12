@@ -1,27 +1,24 @@
-import { Command, Flag } from 'discord-akairo';
-import { Message } from 'discord.js';
-import { stripIndents } from 'common-tags';
+const { Command, Flag } = require('discord-akairo');
 
-export default class PlaylistCommand extends Command {
-	public constructor() {
+
+class PlaylistCommand extends Command {
+	constructor() {
 		super('playlist', {
 			aliases: ['playlist', 'pl'],
 			description: {
-				content: stripIndents`
-					 • create \`<playlist>\` \`[info]\`
-					 • add \`<playlist>\` \`<link/playlist>\`
-					 • load \`<playlist>\`
-					 • remove \`<playlist>\` \`<position>\`
-					 • edit \`<playlist>\` \`<info>\`
-					 • del \`<playlist>\`
-					 • show \`<playlist>\` \`[page]\`
-					 • info \`<playlist>\`
-					 • list \`[member]\` \`[page]\`
-
-					Required: \`<>\` | Optional: \`[]\`
-
-					For additional \`<...arguments>\` usage refer to the examples below.
-				`,
+				content: [
+					'• create `<playlist>` `[info]`',
+					'• add `<playlist>` `<link/playlist>`',
+					'• load `<playlist>`',
+					'• remove `<playlist>` `<position>`',
+					'• edit `<playlist>` `<info>`',
+					'• del `<playlist>`',
+					'• show `<playlist>` `[page]`',
+					'• info `<playlist>`',
+					'• list `[member]` `[page]`',
+				   'Required: `<>` | Optional: `[]`',
+				   'For additional `<...arguments>` usage refer to the examples below.'
+				],
 				usage: '<method> <...arguments>',
 				examples: [
 					'create Test',
@@ -42,7 +39,7 @@ export default class PlaylistCommand extends Command {
 		});
 	}
 
-	public *args() {
+	*args() {
 		const method = yield {
 			type: [
 				['playlist-show', 'show'],
