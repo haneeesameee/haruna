@@ -22,7 +22,7 @@ class StopCommand extends Command {
 		if (DJ) await queue.stop();
 		else await queue.player.pause();
 
-		return message.util.send(`${DJ ? 'Stopped' : 'Paused'} the queue.`);
+		return message.util.send(`${DJ ? 'Stopped' : 'Paused'} the queue ~`);
 	}
 }
 
