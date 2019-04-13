@@ -10,7 +10,7 @@ class ShardReconnectListener extends Listener {
 	}
 
 	exec(id) {
-		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!!`);
+		this.client.logger.info(`[SHARD ${id} RECONNECTING] Firepower--full force!`);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} RECONNECTING][METRICS] Metrics server closed.`);
 	}
