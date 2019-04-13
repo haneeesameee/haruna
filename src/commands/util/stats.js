@@ -32,14 +32,14 @@ class StatsCommand extends Command {
 				true
 			)
 			.addField('❯ Version', `v${version}`, true)
-			.addField('❯ Source Code', '[View Here](https://github.com/Naval-Base/haruna)', true)
+			.addField('❯ Source Code', '[View Here](https://github.com/AlmostSuvajit/Lavaqueue-MusicBot)', true)
 			.addField(
 				'❯ Library',
 				'[discord.js](https://discord.js.org)[-akairo](https://github.com/discord-akairo/discord-akairo)',
 				true
 			)
 			.setThumbnail(this.client.user.displayAvatarURL())
-			.setFooter(`© 2018 ${this.client.users.get(this.client.config.owner).tag}`);
+			.setFooter(`© 2019 ${this.client.users.get(this.client.config.owner).tag}`);
 
 		return message.util.send(embed);
 	}
