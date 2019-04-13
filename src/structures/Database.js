@@ -1,4 +1,5 @@
 const path = require('path');
+const chalk = require('chalk');
 const readdir = require('util').promisify(require('fs').readdir);
 const Sequelize = require('sequelize');
 
@@ -12,8 +13,10 @@ class Database {
 	static async authenticate() {
 		try {
 			await db.authenticate();
+			console.log(chalk.blue('Database connection has been established successfully ~'));
 			await this.loadModels(path.join(__dirname, '..', 'models'));
 		} catch (err) {
+			console.log(chalk.red('Unable to connect to the Database ~'));
 			setTimeout(this.authenticate, 5000);
 		}
 	}
