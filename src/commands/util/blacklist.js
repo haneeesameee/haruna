@@ -5,9 +5,9 @@ class BlacklistCommand extends Command {
 		super('blacklist', {
 			aliases: ['blacklist', 'unblacklist'],
 			description: {
-				content: 'Prohibit/Allow a user from using Yukikaze.',
+				content: 'Prohibit/Allow a user from using Bot',
 				usage: '<user>',
-				examples: ['Crawl', '@Crawl', '81440962496172032']
+				examples: ['Suvajit', 'Suvajit', '81440962496172032']
 			},
 			category: 'util',
 			ownerOnly: true,
