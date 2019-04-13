@@ -14,7 +14,7 @@ class PrefixCommand extends Command {
 	}
 
 	async exec(message) {
-		return message.util.send(`The current prefixes for this guild are: ${(this.handler.prefix).join(' | ')}`);
+		return message.util.send(`The current prefixes for this guild are ${(this.handler.prefix).join(' | ')}`);
 	}
 }
 
