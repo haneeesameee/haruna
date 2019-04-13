@@ -13,3 +13,5 @@
 >   9. Change directory to `cd lavalink` and run `java -jar Lavalink.jar`
 >   10. Keep the terminal open. It's Lavalink Server.
 >   11. Now go back to root directory `cd ..` and run `node index.js`
+
+> I have used `discord.js master` and `discord-akairo master` version. You may need to install [Git](https://git-scm.com/) for this work. 
