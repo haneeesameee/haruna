@@ -27,7 +27,7 @@ class PingCommand extends Command {
 	}
 
 	async exec(message) {
-		const msg = await message.util.send('Pinging...');
+		const msg = await message.util.send('Pinging ~ ~ ~');
 
 		return message.util.send(
 			RESPONSES[Math.floor(Math.random() * RESPONSES.length)]
