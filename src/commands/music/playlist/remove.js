@@ -1,5 +1,4 @@
 const { Argument, Command } = require('discord-akairo');
-const { Playlist } = require('../../../models/Playlists');
 
 class PlaylistRemoveCommand extends Command {
 	constructor() {
