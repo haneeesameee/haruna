@@ -38,7 +38,7 @@ class PlaylistCreateCommand extends Command {
 			description: info ? Util.cleanContent(info, message) : ''
 		});
 
-		return message.util.reply(`successfully created **${pls.name}**.`);
+		return message.util.reply(`successfully created **${pls.name}**`);
 	}
 }
 
