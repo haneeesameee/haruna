@@ -1,11 +1,10 @@
 {
-	"name": "haruna",
+	"name": "lavaqueue-music-bot",
 	"version": "0.1.0",
 	"description": "",
 	"main": "index.js",
-	"author": "iCrawl <icrawltogo@gmail.com>",
+	"author": "Suvajit <suvajit.c@outlook.com>",
 	"license": "UNLICENSED",
-	"private": true,
 	"scripts": {
 		"start": "node index.js"
 	},
