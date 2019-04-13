@@ -10,7 +10,7 @@ class ShardDisconnectedListener extends Listener {
 	}
 
 	exec(event, id) {
-		this.client.logger.warn(`[SHARD ${id} DISCONNECTED] Ugh...I'm sorry...but, a loss is a loss... (${event.code})`, event);
+		this.client.logger.warn(`[SHARD ${id} DISCONNECTED] Ugh.. I'm sorry.. but, a loss is a loss.. (${event.code})`, event);
 		this.client.promServer.close();
 		this.client.logger.info(`[SHARD ${id} DISCONNECTED][METRICS] Metrics server closed.`);
 	}
