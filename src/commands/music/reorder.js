@@ -1,5 +1,6 @@
 const { Command } = require('discord-akairo');
 
+// Not Sure What I did Here
 const sliceFrom = String;
 const sliceTo = String;
 const singleNum = String;
