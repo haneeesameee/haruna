@@ -20,7 +20,7 @@ class PauseCommand extends Command {
 		const queue = this.client.music.queues.get(message.guild.id);
 		await queue.player.pause();
 
-		return message.util.send('Paused the queue.');
+		return message.util.send('Paused the queue ~');
 	}
 }
 
