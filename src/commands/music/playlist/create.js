@@ -31,13 +31,12 @@ class PlaylistCreateCommand extends Command {
 	}
 
 	async exec(message, { playlist, info }) {
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		const pls = new Playlist();
-		pls.user = message.author.id;
-		pls.guild = message.guild.id;
-		pls.name = playlist;
-		if (info) pls.description = Util.cleanContent(info, message);
-		await playlistRepo.save(pls);
+		const pls = await Playlist.create({
+			user: message.author.id,
+			guild: message.guild.id,
+			name: playlist,
+			description: info ? Util.cleanContent(info, message) : ''
+		});
 
 		return message.util.reply(`successfully created **${pls.name}**.`);
 	}

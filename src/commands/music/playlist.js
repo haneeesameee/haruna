@@ -57,3 +57,5 @@ class PlaylistCommand extends Command {
 		return Flag.continue(method);
 	}
 }
+
+module.exports = PlaylistCommand;

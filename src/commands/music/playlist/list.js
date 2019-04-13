@@ -1,6 +1,6 @@
 const { Argument, Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
-// const paginate = require('../../../../util/paginate');
+const paginate = require('../../../util/paginate');
 const { Playlist } = require('../../../models/Playlists');
 
 class PlaylistListCommand extends Command {
@@ -29,8 +29,7 @@ class PlaylistListCommand extends Command {
 
 	async exec(message, { member, page }) {
 		const where = member ? { user: member.id, guild: message.guild.id } : { guild: message.guild.id };
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		const playlists = await playlistRepo.find(where);
+		const playlists = await Playlist.findAll({ where });
 		if (!playlists.length) return message.util.send(`${member ? `${member.displayName}` : `${message.guild.name}`} doesn't have any playlists.`);
 		const paginated = paginate(playlists, page);
 

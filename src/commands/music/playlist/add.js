@@ -1,7 +1,7 @@
 const { Argument, Command } = require('discord-akairo');
-const { parse, url } = require('url');
+const { parse } = require('url');
+const url = require('url');
 const path = require('path');
-const { Playlist } = require('../../../models/Playlists');
 
 class PlaylistAddCommand extends Command {
 	constructor() {
@@ -19,7 +19,7 @@ class PlaylistAddCommand extends Command {
 					id: 'playlist',
 					type: 'playlist',
 					prompt: {
-						start: message => `what playlist should this song/playlist be added to?`,
+						start: message => `${message.author} what playlist should this song/playlist be added to?`,
 						retry: (message, { failure }) => `${message.author}, a playlist with the name **${failure.value}** does not exist.`
 					}
 				},
@@ -47,18 +47,18 @@ class PlaylistAddCommand extends Command {
 
 		let msg;
 		if (['TRACK_LOADED', 'SEARCH_RESULT'].includes(res.loadType)) {
-			playlist.songs.push(res.tracks[0].track);
+			const newTracks = await playlist.songs.concat([res.tracks[0].track]);
+			await playlist.update({ songs: newTracks });
 			msg = res.tracks[0].info.title;
 		} else if (res.loadType === 'PLAYLIST_LOADED') {
-			playlist.songs.push(...res.tracks.map(track => track.track));
+			const newTracks = await playlist.songs.concat(res.tracks.map(track => track.track));
+			await playlist.update({ songs: newTracks });
 			msg = res.playlistInfo.name;
 		} else {
 			return message.util.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
 		}
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		await playlistRepo.save(playlist);
 
-		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Added to playlist:** \`${msg}\``);
+		return message.util.send(`**Added to playlist:** \`${msg}\``);
 	}
 }
 

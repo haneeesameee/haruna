@@ -35,9 +35,7 @@ class PlaylistEditCommand extends Command {
 
 	async exec(message, { playlist, info }) {
 		if (playlist.user !== message.author.id) return message.util.reply('you can only edit your own playlists.');
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		playlist.description = Util.cleanContent(info, message);
-		await playlistRepo.save(playlist);
+		await playlist.update({ description: Util.cleanContent(info, message) });
 
 		return message.util.reply(`successfully updated **${playlist.name}s** description.`);
 	}

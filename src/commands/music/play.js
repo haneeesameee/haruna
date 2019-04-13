@@ -1,6 +1,7 @@
 const { Argument, Command } = require('discord-akairo');
-const { parse, url } = require('url');
+const { parse } = require('url');
 const path = require('path');
+const url = require('url');
 
 class PlayCommand extends Command {
 	constructor() {
@@ -62,7 +63,7 @@ class PlayCommand extends Command {
 		}
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 
-		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${msg}\``);
+		return message.util.send(`**Queued up:** \`${msg}\``);
 	}
 }
 

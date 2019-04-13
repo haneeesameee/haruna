@@ -35,9 +35,9 @@ class PlaylistRemoveCommand extends Command {
 		if (playlist.user !== message.author.id) return message.util.reply('you can only remove songs from your own playlists.');
 		position = position >= 1 ? position - 1 : playlist.songs.length - (~position + 1);
 		const decoded = await this.client.music.decode([playlist.songs[position]]);
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		playlist.songs.splice(position, 1);
-		await playlistRepo.save(playlist);
+		
+		const newTracks = await playlist.songs.filter(id => id !== decoded[0].track);
+		await playlist.update({ songs: newTracks });
 
 		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Removed:** \`${decoded[0].info.title}\``);
 	}

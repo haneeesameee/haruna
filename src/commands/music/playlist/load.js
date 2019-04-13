@@ -1,5 +1,4 @@
 const { Command } = require('discord-akairo');
-const { Playlist } = require('../../../models/Playlists');
 
 class PlaylistLoadCommand extends Command {
 	constructor() {
@@ -39,9 +38,7 @@ class PlaylistLoadCommand extends Command {
 		if (!message.guild.me.voice.channel) await queue.player.join(message.member.voice.channel.id);
 		await queue.add(...playlist.songs);
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		playlist.plays += 1;
-		await playlistRepo.save(playlist);
+		await playlist.update({ plays: playlist.plays + 1 });
 
 		return message.util.send(`${this.client.emojis.get('479430354759843841')} **Queued up:** \`${playlist.name}\` from ${user.tag}`);
 	}

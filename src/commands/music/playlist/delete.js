@@ -27,8 +27,7 @@ class PlaylistDeleteCommand extends Command {
 
 	async exec(message, { playlist }) {
 		if (playlist.user !== message.author.id) return message.util.reply('you can only delete your own playlists.');
-		const playlistRepo = this.client.db.getRepository(Playlist);
-		await playlistRepo.remove(playlist);
+		await playlist.destroy();
 
 		return message.util.reply(`successfully deleted **${playlist.name}**.`);
 	}

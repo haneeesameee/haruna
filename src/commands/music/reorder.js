@@ -1,5 +1,4 @@
 const { Command } = require('discord-akairo');
-
 /**
  * I don't Know what I did here :D
  */
