@@ -1,7 +1,5 @@
 const { Command } = require('discord-akairo');
-/**
- * I don't Know what I did here :D
- */
+
 const sliceFrom = String;
 const sliceTo = String;
 const singleNum = String;
@@ -12,16 +10,16 @@ const ORDERING_REGEX = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>
 class ReorderCommand extends Command {
 	constructor() {
 		super('reorder', {
-			aliases: ['reorder', '↕'],
+			aliases: ['reorder', '↕', 'reo'],
 			description: {
 				content: [
 					'Reorders the current queue.',
 					'A number means that the song at that number currently will be moved to that position.',
-					"A '-' between two numbers means to move all the songs, starting from first number to the second number.",
-					"A '\\*' means to spread the remaining songs out (multiple '\\*' will split it evenly)."
+					'A \'-\' between two numbers means to move all the songs, starting from first number to the second number.',
+					'A \'\\*\' means to spread the remaining songs out (multiple \'\\*\' will split it evenly).'
 				],
 				usage: '<ordering>',
-				examples: ['1-3 7 *', '1 2 3 *', '10-7 * 1 2 3 3 * 10-7']
+				examples: ['1-3 7 *', '1-2 3 *', '10-7 * 1 2 3 3 * 10-7']
 			},
 			category: 'music',
 			channel: 'guild',
@@ -47,7 +45,6 @@ class ReorderCommand extends Command {
 			return message.util.reply('you have to supply a new order for the songs.');
 		}
 		const orderingMatch = ordering.match(ORDERING_REGEX);
-		 console.log(orderingMatch);
 		if (!orderingMatch || orderingMatch.join('').length !== ordering.length) {
 			return message.util.reply('you have to supply a valid new order for the songs.');
 		}
@@ -106,7 +103,7 @@ class ReorderCommand extends Command {
 					unusedIndices.delete(action.num);
 					break;
 				case 'slice':
-					const slice = tracks.slice(action.from, action.to + 1);
+					const slice = tracks.slice(action.from, action.to + 1); // eslint-disable-line no-case-declarations
 					if (action.reverse) slice.reverse();
 					newTracks.push(...slice);
 					for (let i = action.from; i <= action.to; i++) {
