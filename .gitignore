@@ -1,27 +1,8 @@
 # Packages
 node_modules/
 
-# Log files
-logs/
-*.log
-npm-debug.log*
-
-# Runtime data
-pids
-*.pid
-*.seed
-
 # Env
 .env
-.env_lavalink
 
-# Dist
-dist/
-typings/
-
-# Miscellaneous
-.tmp/
-.github/
-ormconfig.json
-
+# Logs
 logger/
