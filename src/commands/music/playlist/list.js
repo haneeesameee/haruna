@@ -46,4 +46,4 @@ class PlaylistListCommand extends Command {
 	}
 }
 
-module.exports = PlaylistListCommand
+module.exports = PlaylistListCommand;
