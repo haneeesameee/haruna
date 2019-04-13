@@ -38,3 +38,4 @@ class SettingsProvider extends SequelizeProvider {
 }
 
 module.exports = SettingsProvider;
+
