@@ -7,3 +7,7 @@ yarn.lock
 
 # Logs
 logger/
+logs/
+
+# Lavalink
+Lavalink.jar
