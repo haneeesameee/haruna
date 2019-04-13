@@ -42,7 +42,7 @@ class PlaylistAddCommand extends Command {
 			return;
 		}
 		if (!['http:', 'https:'].includes(url.parse(query).protocol)) query = `ytsearch:${query}`;
-		// TODO: remove hack
+
 		const res = await this.client.music.load(query);
 
 		let msg;
