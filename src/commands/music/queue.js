@@ -49,7 +49,7 @@ class QueueCommand extends Command {
 
 				**Total queue time:** ${timeString(totalLength)}
 			`);
-		if (paginated.maxPage > 1) embed.setFooter('Use queue <page> to view a specific page.');
+		if (paginated.maxPage > 1) embed.setFooter('use queue <page> to view a specific page.');
 
 		return message.util.send(embed);
 	}
