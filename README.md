@@ -6,9 +6,9 @@
 >   2. Install [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) and add to path.
 >   3. Install [Redis](https://github.com/MicrosoftArchive/redis/releases) and add to path.
 >   4. Download [Lavalink.jar](https://github.com/Frederikam/Lavalink/releases)
->   5. Clone this repo.
+>   5. Clone this Repo.
 >   6. Rename `.env.example` to `.env` and fill empty values.
->   7. Install `node_modules`, run `npm i`.
+>   7. Run `npm i` to install `node_modules`
 >   8. Move your `Lavalink.jar` file to `lavalink` folder and must put an `application.yml` file in this directory.
 >   9. Change directory to `cd lavalink` and run `java -jar Lavalink.jar`
 >   10. Keep the terminal open. It's Lavalink Server.
