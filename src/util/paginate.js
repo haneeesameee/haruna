@@ -9,5 +9,5 @@ module.exports = function paginate(items, page = 1, pageLength = 10) {
 		page,
 		maxPage,
 		pageLength
-	};
+	}
 }
