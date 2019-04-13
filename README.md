@@ -15,6 +15,6 @@
 >   11. Keep the terminal open. It's Lavalink Server.
 >   12. Now go back to root directory `cd ..` and run `node index.js`
 
-> I have used `discord.js master` and `discord-akairo master` version. You may need to install [Git](https://git-scm.com/) for this work.
+> I have used `discord.js master` and `discord-akairo master` version. You may need to install [Git](https://git-scm.com/) for this work. I have used [PostgreSQL](https://www.postgresql.org/) DB to make playlist, you may need to install it too or remove those part wisely.
 
 > Need More Help? Join my [Discord](https://discord.gg/KmEP9Qj)
