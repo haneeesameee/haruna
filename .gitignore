@@ -23,3 +23,5 @@ typings/
 .tmp/
 .github/
 ormconfig.json
+
+logger/

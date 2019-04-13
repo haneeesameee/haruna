@@ -2,7 +2,7 @@ const { Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-const { version } = require('../../../../package.json');
+const { version } = require('../../../package.json');
 
 class StatsCommand extends Command {
 	constructor() {

@@ -1,6 +1,5 @@
 const { Command, Flag } = require('discord-akairo');
 
-
 class PlaylistCommand extends Command {
 	constructor() {
 		super('playlist', {

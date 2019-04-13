@@ -2,12 +2,12 @@
 	"name": "haruna",
 	"version": "0.1.0",
 	"description": "",
-	"main": "src/haruna.js",
+	"main": "index.js",
 	"author": "iCrawl <icrawltogo@gmail.com>",
 	"license": "UNLICENSED",
 	"private": true,
 	"scripts": {
-		"start": "node src/index.js"
+		"start": "node index.js"
 	},
 	"dependencies": {
 		"common-tags": "^1.8.0",
@@ -24,6 +24,7 @@
 		"raven": "^2.6.4",
 		"reflect-metadata": "^0.1.13",
 		"rejects": "^0.6.2",
+		"sequelize": "^5.3.5",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^3.8.0"
 	}

@@ -1,14 +1,9 @@
 const { Command } = require('discord-akairo');
-const Logger = require('../../util/Logger');
+// const Logger = require('../../util/Logger');
 const { Util, MessageEmbed } = require('discord.js');
 const util = require('util');
 const NL = '!!NL!!';
 const NL_PATTERN = new RegExp(NL, 'g');
-
-/* eslint-disable no-unused-vars */
-const Reputation = require('../../models/reputations');
-const Star = require('../../models/stars');
-/* eslint-enable no-unused-vars */
 
 class EvalCommand extends Command {
 	constructor() {

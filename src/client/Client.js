@@ -3,11 +3,11 @@ const { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } 
 const { Util } = require('discord.js');
 const { Client : Lavaqueue } = require('lavaqueue');
 const { Logger, createLogger, transports, format } = require('winston');
-const DailyRotateFile = ('winston-daily-rotate-file');
+const DailyRotateFile = require('winston-daily-rotate-file');
 const { ReferenceType, Rejects } = require('rejects');
 const Database = require('../structures/Database');
 const SettingsProvider = require('../structures/SettingsProvider')
-const { Setting } = require('../models/Settings');
+const Setting = require('../models/Settings');
 const { Playlist } = require('../models/Playlists');
 const { Counter, register } = require('prom-client');
 const { createServer, Server } = require('http');
@@ -39,7 +39,7 @@ class Client extends AkairoClient {
 						format.json()
 					),
 					level: 'debug',
-					filename: 'haruna-%DATE%.log',
+					filename: './logger/%DATE%.log',
 					maxFiles: '14d'
 				})
 			]
@@ -159,7 +159,7 @@ class Client extends AkairoClient {
 				release: '0.1.0'
 			}).install();
 		} else {
-			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			//process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 	}
 
@@ -177,8 +177,8 @@ class Client extends AkairoClient {
 		this.listenerHandler.loadAll();
 
 		this.settings = new SettingsProvider(Setting);
-		await Database.authenticate();
 		await this.settings.init();
+		await Database.authenticate();
 	}
 
 	async start() {

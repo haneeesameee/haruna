@@ -1,4 +1,4 @@
-const { db } = require('../struct/Database');
+const { db } = require('../structures/Database');
 const Sequelize = require('sequelize');
 
 const Setting = db.define('settings', {
