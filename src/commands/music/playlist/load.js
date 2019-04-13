@@ -44,4 +44,4 @@ class PlaylistLoadCommand extends Command {
 	}
 }
 
-module.exports = PlaylistLoadCommand
+module.exports = PlaylistLoadCommand;
