@@ -2,11 +2,11 @@ const { db } = require('../structures/Database');
 const Sequelize = require('sequelize');
 
 const Playlist = db.define('playlist', {
-	userID: {
+	user: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},
-	guildID: {
+	guild: {
 		type: Sequelize.STRING,
 		allowNull: false
 	},

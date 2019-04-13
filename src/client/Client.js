@@ -2,15 +2,15 @@ const { join } = require('path')
 const { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } = require('discord-akairo');
 const { Util } = require('discord.js');
 const { Client : Lavaqueue } = require('lavaqueue');
-const { Logger, createLogger, transports, format } = require('winston');
+const { createLogger, transports, format } = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const { ReferenceType, Rejects } = require('rejects');
 const Database = require('../structures/Database');
 const SettingsProvider = require('../structures/SettingsProvider')
 const Setting = require('../models/Settings');
-const { Playlist } = require('../models/Playlists');
+const Playlist = require('../models/Playlists');
 const { Counter, register } = require('prom-client');
-const { createServer, Server } = require('http');
+const { createServer } = require('http');
 const { parse } = require('url');
 const Raven = require('raven');
 
@@ -135,16 +135,14 @@ class Client extends AkairoClient {
 		this.commandHandler.resolver.addType('playlist', async (message, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
-			const playlistRepo = this.db.getRepository(Playlist);
-			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await Playlist.findOne({ where: { name: phrase, guild: message.guild.id } });
 
 			return playlist || Flag.fail(phrase);
 		});
 		this.commandHandler.resolver.addType('existingPlaylist', async (message, phrase) => {
 			if (!phrase) return Flag.fail(phrase);
 			phrase = Util.cleanContent(phrase.toLowerCase(), message);
-			const playlistRepo = this.db.getRepository(Playlist);
-			const playlist = await playlistRepo.findOne({ name: phrase, guild: message.guild.id });
+			const playlist = await Playlist.findOne({ where: { name: phrase, guild: message.guild.id } });
 
 			return playlist ? Flag.fail(phrase) : phrase;
 		});
@@ -159,7 +157,7 @@ class Client extends AkairoClient {
 				release: '0.1.0'
 			}).install();
 		} else {
-			//process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
+			process.on('unhandledRejection', err => this.logger.error(`[UNHANDLED REJECTION] ${err.message}`, err.stack));
 		}
 	}
 
