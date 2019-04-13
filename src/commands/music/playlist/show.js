@@ -37,7 +37,7 @@ class PlaylistShowCommand extends Command {
 	async exec(message, { playlist, page }) {
 		if (!playlist.songs.length) return message.util.send('This playlist has no songs!');
 		const decoded = await this.client.music.decode(playlist.songs);
-		// TODO: remove hack
+		
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded, page);
 		let index = (paginated.page - 1) * 10;
