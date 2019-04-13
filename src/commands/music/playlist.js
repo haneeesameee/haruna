@@ -29,7 +29,7 @@ class PlaylistCommand extends Command {
 					'show Test',
 					'show Test 3',
 					'info Test',
-					'list Crawl 2'
+					'list Suvajit 2'
 				]
 			},
 			category: 'music',
