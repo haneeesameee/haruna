@@ -10,5 +10,6 @@
 >   6. Rename `.env.example` to `.env` and fill empty values.
 >   7. Install `node_modules`, run `npm i`.
 >   8. Move your `Lavalink.jar` file to `lavalink` folder and must put an `application.yml` file in this directory.
->   9. Change directory to `cd lavalink` and run `java -jar Lavalink.jar`. Keep this terminal open, this is our Lavalink server.
->   10. Now go back to root directory `cd ..` and run `node index.js`
+>   9. Change directory to `cd lavalink` and run `java -jar Lavalink.jar`
+>   10. Keep the terminal open. It's Lavalink Server.
+>   11. Now go back to root directory `cd ..` and run `node index.js`
