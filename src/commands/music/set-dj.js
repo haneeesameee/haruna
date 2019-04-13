@@ -7,7 +7,7 @@ class SetDJRoleCommand extends Command {
 			description: {
 				content: 'Sets the DJ role many of the commands use for permission checking.',
 				usage: '<role>',
-				examples: ['dj @DJ', 'dj DJ']
+				examples: ['@DJ', 'DJ']
 			},
 			category: 'util',
 			channel: 'guild',
