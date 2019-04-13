@@ -93,8 +93,8 @@ class Client extends AkairoClient {
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
 	
 		this.prometheus = {
-			messagesCounter: new Counter({ name: 'haruna_messages_total', help: 'Total number of messages Haruna has seen' }),
-			commandCounter: new Counter({ name: 'haruna_commands_total', help: 'Total number of commands used' }),
+			messagesCounter: new Counter({ name: 'client_messages_total', help: 'Total number of messages Haruna has seen' }),
+			commandCounter: new Counter({ name: 'client_commands_total', help: 'Total number of commands used' }),
 			register
 		};
 	
