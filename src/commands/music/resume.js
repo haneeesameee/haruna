@@ -20,7 +20,7 @@ class ResumeCommand extends Command {
 		const queue = this.client.music.queues.get(message.guild.id);
 		await queue.player.pause(false);
 
-		return message.util.send('Resumed the queue.');
+		return message.util.send('Resumed the queue ~');
 	}
 }
 
