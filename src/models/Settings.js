@@ -15,3 +15,4 @@ const Setting = db.define('settings', {
 });
 
 module.exports = Setting;
+
