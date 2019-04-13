@@ -14,3 +14,4 @@ class BlacklistInhibitor extends Inhibitor {
 }
 
 module.exports = BlacklistInhibitor;
+
