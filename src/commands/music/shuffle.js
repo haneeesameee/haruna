@@ -20,7 +20,7 @@ class ShuffleCommand extends Command {
 		const queue = this.client.music.queues.get(message.guild.id);
 		await queue.shuffle();
 
-		return message.util.send('Shuffled the queue.');
+		return message.util.send('Shuffled the queue ~');
 	}
 }
 
