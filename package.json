@@ -3,11 +3,10 @@
 	"version": "0.1.0",
 	"description": "",
 	"main": "index.js",
-	"author": "Suvajit <suvajit.c@outlook.com>",
+	"author": "Suvajit <almostsuvajit@gmail.com>",
 	"license": "UNLICENSED",
 	"scripts": {
-		"start": "node index.js",
-		"build": "runlavalink/start.bat"
+		"start": "node index.js"
 	},
 	"dependencies": {
 		"chalk": "^2.4.2",
