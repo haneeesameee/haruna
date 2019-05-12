@@ -1,11 +1,5 @@
 const { Command } = require('discord-akairo');
 
-// Not Sure What I did Here
-const sliceFrom = String;
-const sliceTo = String;
-const singleNum = String;
-const spread = String;
-
 const ORDERING_REGEX = /\s*(?<sliceFrom>\d+)-(?<sliceTo>\d+)\s*|\s*(?<singleNum>\d+)\s*|\s*(?<spread>\*)\s*/g;
 
 class ReorderCommand extends Command {
