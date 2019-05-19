@@ -1,19 +1,27 @@
 # Lavaqueue Discord Music Bot
 
-## Setup
+## Installation
 
 >   1. Install [Node.JS](https://nodejs.org/en/)
->   2. Install [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) and add to path.
+>   2. Install [Java 10](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html) and add to path.
 >   3. Install [Redis](https://github.com/MicrosoftArchive/redis/releases) and add to path.
 >   4. Download [Lavalink.jar](https://github.com/Frederikam/Lavalink/releases)
->   5. Clone this Repo.
->   6. Rename `.env.example` to `.env` and fill empty values.
->   7. Run `npm i` to install `node_modules`
->   8. Move your `Lavalink.jar` file to `lavalink` folder and must put an `application.yml` file in this directory.
->   9. Change directory to `cd lavalink` and run `java -jar Lavalink.jar`
->   10. Keep the terminal open. It's Lavalink Server.
->   11. Now go back to root directory `cd ..` and run `node index.js`
 
-> I have used `discord.js master` and `discord-akairo master` version. You may need to install [Git](https://git-scm.com/) for this work. I have used [PostgreSQL](https://www.postgresql.org/) DB to make playlist, you may need to install it too or remove those part wisely.
+## LavaLink configuration
+Download binaries from the [CI server](https://ci.fredboat.com/viewLog.html?buildId=lastSuccessful&buildTypeId=Lavalink_Build&tab=artifacts&guest=1) or the [GitHub releases.](https://github.com/Frederikam/Lavalink/releases)
 
-> Need More Help? Join my [Discord](https://discord.gg/KmEP9Qj)
+Put an `application.yml` file in your working directory. [Example](https://github.com/Frederikam/Lavalink/blob/master/LavalinkServer/application.yml.example)
+
+Run with `java -jar Lavalink.jar`
+
+## Start
+
+>   1. Run `npm i` to install `node_modules`
+>   2. Run with `node index.js` to start the bot.
+
+# Special Thanks
+- [Crawl](https://github.com/iCrawl)
+- [appellation](https://github.com/appellation)
+- [discord.js](https://github.com/discordjs/discord.js)
+- [discord-akairo](https://github.com/discord-akairo/discord-akairo)
+- [lavaqueue](https://github.com/lavalibs/lavaqueue)
