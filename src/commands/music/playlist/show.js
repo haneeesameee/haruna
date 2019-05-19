@@ -2,6 +2,7 @@ const { Argument, Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const paginate = require('../../../util/paginate');
 const timeString = require('../../../util/timeString');
+const { stripIndents } = require('common-tags');
 
 class PlaylistShowCommand extends Command {
 	constructor() {
@@ -37,7 +38,7 @@ class PlaylistShowCommand extends Command {
 	async exec(message, { playlist, page }) {
 		if (!playlist.songs.length) return message.util.send('This playlist has no songs!');
 		const decoded = await this.client.music.decode(playlist.songs);
-		
+
 		const totalLength = decoded.reduce((prev, song) => prev + song.info.length, 0);
 		const paginated = paginate(decoded, page);
 		let index = (paginated.page - 1) * 10;

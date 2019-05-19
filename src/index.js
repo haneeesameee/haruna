@@ -1,6 +1,6 @@
 require('reflect-metadata');
 require('dotenv').config();
-const Client = require('./src/client/Client');
+const Client = require('./client/Client');
 
 const client = new Client({ owner: process.env.OWNER, token: process.env.TOKEN });
 

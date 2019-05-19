@@ -6,7 +6,9 @@
 	"author": "Suvajit <almostsuvajit@gmail.com>",
 	"license": "UNLICENSED",
 	"scripts": {
-		"start": "node index.js"
+		"start": "node src/index.js",
+		"test": "eslint ./",
+		"lint": "eslint --fix src/"
 	},
 	"dependencies": {
 		"chalk": "^2.4.2",
@@ -27,5 +29,9 @@
 		"sequelize": "^5.3.5",
 		"winston": "^3.2.1",
 		"winston-daily-rotate-file": "^3.8.0"
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-aqua": "^5.0.0"
 	}
 }

@@ -2,6 +2,7 @@ const { Argument, Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const paginate = require('../../util/paginate');
 const timeString = require('../../util/timeString');
+const { stripIndents } = require('common-tags');
 
 class SkipCommand extends Command {
 	constructor() {
@@ -26,9 +27,9 @@ class SkipCommand extends Command {
 		};
 
 		const num = yield (
-			msg.member.roles.has(this.client.settings.get('msg.guild', 'djRole', undefined)) && force ?
-			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)) } :
-			{ match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)) }
+			msg.member.roles.has(this.client.settings.get('msg.guild', 'djRole', undefined)) && force
+				? { match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, Infinity)) }
+				: { match: 'rest', type: Argument.compose((_, str) => str.replace(/\s/g, ''), Argument.range(Argument.union('number', 'emojint'), 1, 10)) }
 		);
 
 		return { num };

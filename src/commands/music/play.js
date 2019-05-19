@@ -1,5 +1,4 @@
 const { Argument, Command } = require('discord-akairo');
-const { parse } = require('url');
 const path = require('path');
 const url = require('url');
 
@@ -35,9 +34,9 @@ class PlayCommand extends Command {
 		if (!message.member.voice || !message.member.voice.channel) {
 			return message.util.reply('you have to be in a voice channel first, silly.');
 		} else if (!message.member.voice.channel.joinable) {
-			return message.util.reply("I don't seem to have permission to enter this voice channel.");
+			return message.util.reply('I don\'t seem to have permission to enter this voice channel.');
 		} else if (!message.member.voice.channel.speakable) {
-			return message.util.reply("I don't seem to have permission to talk in this voice channel.");
+			return message.util.reply('I don\'t seem to have permission to talk in this voice channel.');
 		}
 		if (!query && message.attachments.first()) {
 			query = message.attachments.first().url;
@@ -59,7 +58,7 @@ class PlayCommand extends Command {
 			await queue.add(...res.tracks.map(track => track.track));
 			msg = res.playlistInfo.name;
 		} else {
-			return message.util.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
+			return message.util.send('I know you hate to hear that, but even searching the universe I couldn\'t find what you were looking for.');
 		}
 		if (!queue.player.playing && !queue.player.paused) await queue.start();
 

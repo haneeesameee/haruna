@@ -2,6 +2,7 @@ const { Argument, Command } = require('discord-akairo');
 const { MessageEmbed } = require('discord.js');
 const paginate = require('../../../util/paginate');
 const { Playlist } = require('../../../models/Playlists');
+const { stripIndents } = require('common-tags');
 
 class PlaylistListCommand extends Command {
 	constructor() {

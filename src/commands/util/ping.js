@@ -19,7 +19,7 @@ class PingCommand extends Command {
 		super('ping', {
 			aliases: ['ping'],
 			description: {
-				content: "Checks the bot's ping to the Discord servers."
+				content: 'Checks the bot\'s ping to the Discord servers.'
 			},
 			category: 'util',
 			ratelimit: 2

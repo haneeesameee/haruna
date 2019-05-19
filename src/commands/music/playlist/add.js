@@ -55,7 +55,7 @@ class PlaylistAddCommand extends Command {
 			await playlist.update({ songs: newTracks });
 			msg = res.playlistInfo.name;
 		} else {
-			return message.util.send("I know you hate to hear that, but even searching the universe I couldn't find what you were looking for.");
+			return message.util.send('I know you hate to hear that, but even searching the universe I couldn\'t find what you were looking for.');
 		}
 
 		return message.util.send(`**Added to playlist:** \`${msg}\``);

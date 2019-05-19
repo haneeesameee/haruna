@@ -20,7 +20,7 @@ const Playlist = db.define('playlist', {
 	},
 	songs: {
 		type: Sequelize.ARRAY(Sequelize.TEXT), // eslint-disable-line new-cap
-		defaultValue: Array,
+		defaultValue: Array
 	},
 	plays: {
 		type: Sequelize.INTEGER,

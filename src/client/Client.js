@@ -1,12 +1,12 @@
-const { join } = require('path')
+const { join } = require('path');
 const { AkairoClient, CommandHandler, InhibitorHandler, ListenerHandler, Flag } = require('discord-akairo');
 const { Util } = require('discord.js');
-const { Client : Lavaqueue } = require('lavaqueue');
+const { Client: Lavaqueue } = require('lavaqueue');
 const { createLogger, transports, format } = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const { ReferenceType, Rejects } = require('rejects');
 const Database = require('../structures/Database');
-const SettingsProvider = require('../structures/SettingsProvider')
+const SettingsProvider = require('../structures/SettingsProvider');
 const Setting = require('../models/Settings');
 const Playlist = require('../models/Playlists');
 const { Counter, register } = require('prom-client');
@@ -44,18 +44,18 @@ class Client extends AkairoClient {
 				})
 			]
 		});
-	
+
 		this.music = new Lavaqueue({
 			userID: process.env.ID,
 			password: process.env.LAVALINK_PASSWORD,
 			hosts: {
 				rest: process.env.LAVALINK_REST,
 				ws: process.env.LAVALINK_WS,
-				redis: process.env.REDIS ? {
+				redis: {
 					port: 6379,
 					host: process.env.REDIS,
 					db: 0
-				} : undefined
+				}
 			},
 			send: async (guild, packet) => {
 				const shardGuild = this.guilds.get(guild);
@@ -63,9 +63,9 @@ class Client extends AkairoClient {
 				return Promise.resolve();
 			}
 		});
-	
+
 		this.storage = new Rejects(this.music.queues.redis);
-	
+
 		this.commandHandler = new CommandHandler(this, {
 			directory: join(__dirname, '..', 'commands'),
 			prefix: ['🎶', '🎵', '🎼', '🎹', '🎺', '🎻', '🎷', '🎸', '🎤', '🎧', '🥁'],
@@ -80,7 +80,7 @@ class Client extends AkairoClient {
 					modifyStart: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 					modifyRetry: (_, str) => `${str}\n\nType \`cancel\` to cancel the command.`,
 					timeout: 'Guess you took too long, the command has been cancelled.',
-					ended: "More than 3 tries and you still didn't quite get it. The command has been cancelled",
+					ended: 'More than 3 tries and you still didn\'t quite get it. The command has been cancelled',
 					cancel: 'The command has been cancelled.',
 					retries: 3,
 					time: 30000
@@ -89,15 +89,15 @@ class Client extends AkairoClient {
 			}
 		});
 		this.inhibitorHandler = new InhibitorHandler(this, { directory: join(__dirname, '..', 'inhibitors') });
-	
+
 		this.listenerHandler = new ListenerHandler(this, { directory: join(__dirname, '..', 'listeners') });
-	
+
 		this.prometheus = {
 			messagesCounter: new Counter({ name: 'client_messages_total', help: 'Total number of messages Haruna has seen' }),
 			commandCounter: new Counter({ name: 'client_commands_total', help: 'Total number of commands used' }),
 			register
 		};
-	
+
 		this.promServer = createServer((req, res) => {
 			if (parse(req.url).pathname === '/metrics') {
 				res.writeHead(200, { 'Content-Type': this.prometheus.register.contentType });
@@ -111,8 +111,8 @@ class Client extends AkairoClient {
 				case 'VOICE_STATE_UPDATE':
 					if (packet.d.user_id !== process.env.ID) return;
 					this.music.voiceStateUpdate(packet.d);
-					const players = await this.storage.get('players', { type: ReferenceType.ARRAY });
-					let index = 0;
+					const players = await this.storage.get('players', { type: ReferenceType.ARRAY }); // eslint-disable-line
+					let index = 0; // eslint-disable-line
 					if (Array.isArray(players)) index = players.findIndex(player => player.guild_id === packet.d.guild_id);
 					if (((!players && !index) || index < 0) && packet.d.channel_id) {
 						this.storage.upsert('players', [{ guild_id: packet.d.guild_id, channel_id: packet.d.channel_id }]);

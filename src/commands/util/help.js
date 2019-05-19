@@ -22,13 +22,12 @@ class HelpCommand extends Command {
 	}
 
 	async exec(message, { command }) {
-		const prefix = (this.handler.prefix)[0];
+		const prefix = this.handler.prefix[0];
 		if (!command) {
 			const embed = new MessageEmbed()
 				.setColor(3447003)
-				.addField('❯ Commands', [`A list of available commands.`,
-					`For additional info on a command, type \`${prefix}help <command>\``
-				]);
+				.addField('❯ Commands', ['A list of available commands.',
+					`For additional info on a command, type \`${prefix}help <command>\``]);
 
 			for (const category of this.handler.categories.values()) {
 				embed.addField(`❯ ${category.id.replace(/(\b\w)/gi, lc => lc.toUpperCase())}`, `${category.filter(cmd => cmd.aliases.length > 0).map(cmd => `\`${cmd.aliases[0]}\``).join(' ')}`);

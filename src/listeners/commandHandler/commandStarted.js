@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 const { Listener } = require('discord-akairo');
 const Raven = require('raven');
 

@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 const { Listener } = require('discord-akairo');
 const Raven = require('raven');
 
@@ -12,7 +13,7 @@ class CommandErrorListener extends Listener {
 
 	exec(error, message, command) {
 		this.client.logger.error(`[COMMAND ERROR] ${error.message}`, error.stack);
-		
+
 		Raven.captureBreadcrumb({
 			message: 'command_errored',
 			category: command ? command.category.id : 'inhibitor',

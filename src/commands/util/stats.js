@@ -3,6 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 const { version } = require('../../../package.json');
+const { stripIndents } = require('common-tags');
 
 class StatsCommand extends Command {
 	constructor() {
