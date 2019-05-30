@@ -33,5 +33,10 @@
 	"devDependencies": {
 		"eslint": "^5.16.0",
 		"eslint-config-aqua": "^5.0.0"
-	}
+	},
+	"optionalDependencies": {
+            "@discordjs/uws": "^11.149.1",
+            "erlpack": "discordapp/erlpack",
+            "zlib-sync": "^0.1.4"
+      }
 }
