@@ -13,6 +13,7 @@ Run with `java -jar Lavalink.jar`
 >   2. Run with `node src/index.js` to start the bot.
 
 # Special Thanks
+- [esuvajit](https://github.com/esuvajit)
 - [Crawl](https://github.com/iCrawl)
 - [appellation](https://github.com/appellation)
 - [discord.js](https://github.com/discordjs/discord.js)
